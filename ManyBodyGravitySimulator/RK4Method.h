@@ -19,7 +19,7 @@ public:
 	RK4FOODEs<T> calculateStep();
 	void changeFactor(double newFactor);
 	void changeValue(RK4FOODEs<T> newValue);
-private:
+protected:
 	void update(RK4FOODEs<T> currentValue);
 
 	RK4FOODEs<T> currentValue_;

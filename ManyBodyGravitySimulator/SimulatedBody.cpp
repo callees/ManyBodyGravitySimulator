@@ -29,6 +29,11 @@ RK4Method<TwoVector> SimulatedBody::rk4()
 	return rk4_;
 }
 
+void SimulatedBody::calculateNewPosition()
+{
+	rk4_.calculateSteps();
+}
+
 Body<TwoVector> SimulatedBody::body() const
 {
 	return body_;

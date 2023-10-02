@@ -33,7 +33,7 @@ void NBodySimulation::simulateOneTimeStep()
 {
 	for (std::vector<SimulatedBody>::iterator currentBody = simulatedBodies_.begin(); currentBody != simulatedBodies_.end(); currentBody++)
 	{
-		currentBody->rk4().calculateSteps();
+		currentBody->calculateNewPosition();
 	}
 	updateAllPositions();
 	calculateFactorsOnSimulatedBodies();

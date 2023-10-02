@@ -14,6 +14,7 @@ public:
 	void changeInteractionValues(double newInteractionFactorAtCurrentBody, TwoVector newInteractionFromAllOtherBodies);
 	Body<TwoVector> body() const;
 	RK4Method<TwoVector> rk4();
+	void calculateNewPosition();
 	void updatePosition(RK4FOODEs<TwoVector> newStep);
 	void updatePosition();
 private:

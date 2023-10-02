@@ -14,16 +14,17 @@ class RK4Method
 {
 public:
 	RK4Method();
-	RK4Method(RK4Function<T> functionToSolve, RK4FOODEs<T> initialValue, double timeStep, double initialTimeStep = 0, double factor = 0);
+	RK4Method(RK4Function<T> functionToSolve, RK4FOODEs<T> initialValue, double timeStep, double initialTimeStep = 0, double interactionFactorAtCurrentBody = 0, TwoVector interactionFromAllOtherBodies = TwoVector(0,0));
 	RK4FOODEs<T> calculateSteps(int numberOfSteps = 1);
-	RK4FOODEs<T> calculateStep();
-	void changeFactor(double newFactor);
-	void changeValue(RK4FOODEs<T> newValue);
+	void changeInteractionValues(double newInteractionFactorAtCurrentBody, TwoVector newInteractionFromAllOtherBodies);
+	void changeInteractionValues(RK4FOODEs<T> newValue);
+	RK4FOODEs<T> getCurrentValue();
 protected:
+	RK4FOODEs<T> calculateStep();
 	void update(RK4FOODEs<T> currentValue);
-
 	RK4FOODEs<T> currentValue_;
-	double factorFromActingBody_;
+	TwoVector interactionFromAllOtherBodies_;
+	double interactionFactorAtCurrentBody_;
 	double currentTimeStep_;
 	double timeStep_;
 	RK4Function<T> functionToSolve_;

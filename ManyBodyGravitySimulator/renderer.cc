@@ -71,7 +71,7 @@ int main(void)
 	for (unsigned int epoch = 0; epoch < 1; epoch++)
 	{
 		posHistory.push_back(testSimulation.simulatedBodies_[0].body().position());
-		testSimulation.testSimulate();
+		testSimulation.simulateOneTimeStep();
 	};
 
 	GLFWwindow* window;

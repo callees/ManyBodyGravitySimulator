@@ -18,6 +18,7 @@ public:
 
 private:
 	double gravitationalFactor(const SimulatedBody& currentBody);
+	bool withinAllowedInteractionLimit(const SimulatedBody& currentBody, const SimulatedBody& actingBody);
 	RK4FOODEs<TwoVector> gravitationalODE(RK4FOODEs<TwoVector> positionAndVelocity, double step, double interactionAtCurrentBody, TwoVector interactionAtOtherBody);
 	TwoVector calculateInteractionFromAllOtherBody(const SimulatedBody& currentBody);
 	double calculateInteractionFactorAtCurrentBody(const SimulatedBody& currentBody);
@@ -25,6 +26,6 @@ private:
 
 	double G_;
 	double timeStep_;
-	double interactionLimit_ = 10;
+	double interactionLimit_ = 0.35;
 };
 

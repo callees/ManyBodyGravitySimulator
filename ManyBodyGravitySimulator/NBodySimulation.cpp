@@ -1,5 +1,6 @@
 #include "NBodySimulation.h"
 #include "RK4Function.h"
+#include <algorithm>
 #include <functional>
 #include <fstream>
 
@@ -28,7 +29,7 @@ void NBodySimulation::calculateFactorsOnSimulatedBodies() //could be multithread
 {
 	for (std::vector<SimulatedBody>::iterator currentBody = simulatedBodies_.begin(); currentBody != simulatedBodies_.end(); currentBody++)
 	{
-			currentBody->changeInteractionValues(calculateInteractionFactorAtCurrentBody(*currentBody), calculateInteractionFromAllOtherBody(*currentBody));
+		currentBody->changeInteractionValues(calculateInteractionFactorAtCurrentBody(*currentBody), calculateInteractionFromAllOtherBody(*currentBody));
 	};
 }
 
@@ -42,7 +43,6 @@ void NBodySimulation::simulateOneTimeStep()
 	calculateFactorsOnSimulatedBodies();
 }
 
-#include <algorithm>
 
 void NBodySimulation::updateAllPositions()
 {
@@ -51,7 +51,6 @@ void NBodySimulation::updateAllPositions()
 
 RK4FOODEs<TwoVector> NBodySimulation::gravitationalODE(RK4FOODEs<TwoVector> positionAndVelocity, double step, double interactionFactorAtCurrentBody, TwoVector interactionFromAllOtherBodies)
 {
-
 	return RK4FOODEs<TwoVector>(positionAndVelocity.dy(), interactionFactorAtCurrentBody * positionAndVelocity.y() - interactionFromAllOtherBodies);
 }
 

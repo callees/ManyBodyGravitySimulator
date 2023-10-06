@@ -42,6 +42,9 @@
     <ClCompile Include="SimulatedBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VertexArrayBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -68,8 +71,12 @@
     <ClInclude Include="SimulatedBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VertexArrayBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.shader" />
+    <None Include="fragment.shader" />
   </ItemGroup>
 </Project>

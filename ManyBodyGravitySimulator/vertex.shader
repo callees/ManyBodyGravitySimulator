@@ -1,7 +1,8 @@
 #version 330 core
-uniform vec3 position;
+
+layout (location = 0) in vec2 bodyPosition;
 
 void main()
 {
-	gl_Position = position;
+    gl_Position = vec4(bodyPosition.x, bodyPosition.y, 0, 1.0);
 }

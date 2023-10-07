@@ -8,7 +8,6 @@ NBodySimulation::NBodySimulation()
 {
 
 }
-
 void NBodySimulation::setUpTestSimulation()
 {
 	G_ = 1;
@@ -16,13 +15,22 @@ void NBodySimulation::setUpTestSimulation()
 
 
 	std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc = std::bind(&NBodySimulation::gravitationalODE, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(TwoVector(-1, 0), TwoVector(0, 0), TwoVector(0, 0), 2), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(TwoVector(-0.55, 0), TwoVector(0, -1), TwoVector(0, 0), 2e-6), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(TwoVector(-0.35, 0.75), TwoVector(1, 0.2), TwoVector(0, 0), 1e-6), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(TwoVector(-0.2, -0.2), TwoVector(0.5, -0.7), TwoVector(0, 0), 1e-5), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(TwoVector(1, 0), TwoVector(0, 0), TwoVector(0, 0), 2), timeStep_));
+
+	createSimpleSystem(100, TwoVector(0, 0), TwoVector(0.5,0), gravitationalODEfunc);
+	createSimpleSystem(250, TwoVector(250, 0), TwoVector(-0.2,0.05), gravitationalODEfunc);
+	createSimpleSystem(400, TwoVector(-200, 0), TwoVector(0,0.005), gravitationalODEfunc);
+	createSimpleSystem(400, TwoVector(-250, 0), TwoVector(0,0), gravitationalODEfunc);
+
 
 	calculateFactorsOnSimulatedBodies();
+}
+
+void NBodySimulation::createSimpleSystem(double mass, TwoVector origin, TwoVector velocity, std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc)
+{
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(origin, velocity, TwoVector(0, 0), mass), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(origin + TwoVector(2, 0), TwoVector(-1, 1), TwoVector(0, 0), 2*mass*1e-6), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(origin + TwoVector(-2, -2), TwoVector(0, 1), TwoVector(0, 0), 2*mass*1e-6), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc, Body<TwoVector>(origin + TwoVector(2, 2), TwoVector(0, -1), TwoVector(0, 0), 2*mass*1e-6), timeStep_));
 }
 
 void NBodySimulation::calculateFactorsOnSimulatedBodies() //could be multithreaded in the future?
@@ -40,13 +48,39 @@ void NBodySimulation::simulateOneTimeStep()
 		currentBody->calculateNewPosition();
 	}
 	updateAllPositions();
+	updateBodyPositionHistory();
 	calculateFactorsOnSimulatedBodies();
+}
+
+void NBodySimulation::trackBodyPositionHistory()
+{
+	if (!trackBodyPositionHistory_) {
+		trackBodyPositionHistory_ = true;
+		updateBodyPositionHistory();
+	}
+}
+
+std::vector<std::vector<TwoVector>> NBodySimulation::getBodyPositionHistory()
+{
+	return bodyPositionHistory_;
 }
 
 
 void NBodySimulation::updateAllPositions()
 {
 	std::for_each(simulatedBodies_.begin(), simulatedBodies_.end(), [this](SimulatedBody& simBody) {simBody.updatePosition();});
+}
+
+void NBodySimulation::updateBodyPositionHistory()
+{
+	if (trackBodyPositionHistory_) {
+		std::vector<TwoVector> bodyPositionsAtCurrentTime;
+		for (auto simulatedBody : simulatedBodies_)
+		{
+			bodyPositionsAtCurrentTime.push_back(simulatedBody.body().position());
+		}
+		bodyPositionHistory_.push_back(bodyPositionsAtCurrentTime);
+	}
 }
 
 RK4FOODEs<TwoVector> NBodySimulation::gravitationalODE(RK4FOODEs<TwoVector> positionAndVelocity, double step, double interactionFactorAtCurrentBody, TwoVector interactionFromAllOtherBodies)

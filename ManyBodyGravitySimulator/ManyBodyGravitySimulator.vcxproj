@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\include;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\include;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\include;C:\Users\Cal\Documents\glm-0.9.9.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\include;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\include;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\include;C:\Users\Cal\Documents\glm-0.9.9.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,8 +168,8 @@
     <ClInclude Include="VertexArrayBuffer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.shader" />
-    <None Include="vertex.shader" />
+    <None Include="fragment.frag" />
+    <None Include="vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

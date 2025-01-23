@@ -9,7 +9,6 @@ NBodySimulation::NBodySimulation()
 {
 
 }
-
 void NBodySimulation::setUpTestSimulation()
 {
 	G_ = 6.6743e-11;
@@ -119,6 +118,14 @@ void NBodySimulation::simulateOneTimeStep()
 	calculateFactorsOnSimulatedBodies();
 }
 
+void NBodySimulation::trackBodyPositionHistory()
+{
+	if (!trackBodyPositionHistory_) {
+		trackBodyPositionHistory_ = true;
+		updateBodyPositionHistory();
+	}
+}
+
 void NBodySimulation::trackBodyHistory()
 {
 	if (!trackBodyHistory_) {
@@ -131,6 +138,7 @@ std::vector<std::vector<Body<TwoVector>>> NBodySimulation::getBodyHistory()
 {
 	return bodyHistory_;
 }
+
 
 void NBodySimulation::updateAllPositions()
 {

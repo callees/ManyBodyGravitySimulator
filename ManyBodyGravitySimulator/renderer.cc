@@ -1,76 +1,37 @@
-#include <math.h>
-#include <iostream>
-#include <vector>
-
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Body.h"
-#include "TwoVector.h"
-#include "RK4Method.h"
 #include "NBodySimulation.h"
 
-#include "RK4FOODEs.h"
-#include "RK4Function.h"
+#include "NBodyRenderer.h"
 
-#include <math.h>
+float screenX = 1280;
+float screenY = 720;
+
+//float scaleFactor = 0.027;
+float scaleFactor = 2.19219998e-12;
+//float scaleFactor = 3.13656900e-09;
 
 
-void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius) {
-	int i;
-	int triangleAmount = 20; //# of triangles used to draw circle
-
-	//GLfloat radius = 0.8f; //radius
-	GLfloat twicePi = 2.0f * atan(1)*4;
-
-	glBegin(GL_TRIANGLE_FAN);
-	glVertex2f(x, y); // center of circle
-	for (i = 0; i <= triangleAmount;i++) {
-		glVertex2f(
-			x + (radius * cos(i * twicePi / triangleAmount)),
-			y + (radius * sin(i * twicePi / triangleAmount))
-		);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	float increment = scaleFactor / 20;
+	scaleFactor += increment * (float)yoffset;
+	if (scaleFactor < 0)
+	{
+		scaleFactor = 0;
 	}
-	glEnd();
 }
 
-#include <fstream>
-#include <sstream>
-
-const char* vShaderCode;
-std::string readShader(const char* vertexPath)
-{
-	std::string vertexCode;
-	std::ifstream vShaderFile;
-	// ensure ifstream objects can throw exceptions:
-	try
-	{
-		// open files
-		vShaderFile.open(vertexPath);
-		std::stringstream vShaderStream;
-		// read file's buffer contents into streams
-		vShaderStream << vShaderFile.rdbuf();
-		// close file handlers
-		vShaderFile.close();
-		// convert stream into string
-		vertexCode = vShaderStream.str();
-	}
-	catch (std::ifstream::failure e)
-	{
-		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-	}
-	return vertexCode;
-}
-
-int main(void)
-{
+int main(void) {
 
 	NBodySimulation testSimulation;
 	testSimulation.setUpTestSimulation();
-	std::vector<TwoVector> posHistory;
-	for (unsigned int epoch = 0; epoch < 1; epoch++)
+	testSimulation.trackBodyHistory();
+
+	//4333*100
+	for (unsigned int epoch = 0; epoch < 4333*10; epoch++)
 	{
-		posHistory.push_back(testSimulation.simulatedBodies_[0].body().position());
 		testSimulation.simulateOneTimeStep();
 	};
 
@@ -79,53 +40,32 @@ int main(void)
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
-	
+
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(screenX, screenY, "Cal's Universe Simulator: Renderer WIP", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
 		return -1;
 	}
 
-	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 	glewInit();
-	std::string shaderCode = readShader("C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\vertex.shader");
-	auto code = shaderCode.c_str();
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &code, NULL);
-	glCompileShader(vertexShader);
-	unsigned int ID = glCreateProgram();
-	glAttachShader(ID, vertexShader);
-	glLinkProgram(ID);
 
-	int success;
-	char infoLog[512];
-	glGetProgramiv(ID, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(ID, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
 
-	int positionUniform = glGetUniformLocation(vertexShader, "position");
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	glEnable(0x8861);
+	glfwSwapInterval(0);
 
-	//glfwSwapInterval(2);
-	/* Loop until the user closes the window */
-	unsigned int currentPos = 0;
+	NBodyRenderer nBodyRenderer(testSimulation.getBodyHistory(), window);
+
 	while (!glfwWindowShouldClose(window))
 	{
-		if (currentPos == posHistory.size()) return 0;
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		drawFilledCircle(posHistory[currentPos].x1(), posHistory[currentPos].x2(), 0.01);
+		nBodyRenderer.draw();
 		glfwSwapBuffers(window);
-		glEnd();
-		/* Poll for and process events */
+		glfwSetScrollCallback(window, scroll_callback);
+		nBodyRenderer.setScaleFactor(scaleFactor);
 		glfwPollEvents();
-		currentPos++;
 	}
 
 	glfwTerminate();

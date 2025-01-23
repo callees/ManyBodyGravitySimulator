@@ -27,6 +27,8 @@ private:
 	double mass_;
 };
 
+//Dont have to make children for types of stars since they are defined by their masses
+
 #include "Body.cpp"
 
 #endif

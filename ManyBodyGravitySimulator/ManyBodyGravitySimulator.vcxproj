@@ -146,11 +146,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="NBodyRenderer.cpp" />
     <ClCompile Include="NBodySimulation.cpp" />
     <ClCompile Include="renderer.cc" />
     <ClCompile Include="RK4FOODEs.cpp" />
     <ClCompile Include="RK4Function.cpp" />
     <ClCompile Include="RK4Method.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="SimulatedBody.cpp" />
     <ClCompile Include="TwoOrderRK4Method.cpp" />
     <ClCompile Include="TwoVector.cpp" />
@@ -158,10 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="NBodyRenderer.h" />
     <ClInclude Include="NBodySimulation.h" />
     <ClInclude Include="RK4FOODEs.h" />
     <ClInclude Include="RK4Function.h" />
     <ClInclude Include="RK4Method.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="SimulatedBody.h" />
     <ClInclude Include="TwoOrderRK4Method.h" />
     <ClInclude Include="TwoVector.h" />

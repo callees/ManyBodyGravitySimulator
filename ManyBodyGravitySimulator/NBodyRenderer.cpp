@@ -8,14 +8,14 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-NBodyRenderer::NBodyRenderer(std::string vertexShaderLocation, std::string fragmentShaderLocation, std::vector<std::vector<Body<TwoVector>>> bodyHistory, GLFWwindow* window) : bodyHistory_(bodyHistory), window_(window)
+NBodyRenderer::NBodyRenderer(std::string vertexShaderLocation, std::string fragmentShaderLocation, std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window) : bodyHistory_(bodyHistory), window_(window)
 {
 	initialiseShaderProgram(vertexShaderLocation, fragmentShaderLocation);
 	getUniforms();
 	glUniform2f(resolutionUniform_.uniformId, 1280.f, 720.0f);
 }
 
-NBodyRenderer::NBodyRenderer(std::vector<std::vector<Body<TwoVector>>> bodyHistory, GLFWwindow* window) : NBodyRenderer("C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\vertex.vert", "C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\fragment.frag", bodyHistory, window)
+NBodyRenderer::NBodyRenderer(std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window) : NBodyRenderer("C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\vertex.vert", "C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\fragment.frag", bodyHistory, window)
 {
 }
 
@@ -40,18 +40,18 @@ void NBodyRenderer::draw()
 	glUniformMatrix4fv(translationUniform_.uniformId, 1, GL_FALSE, glm::value_ptr(translationUniform_.matrix));
 	glUniformMatrix4fv(viewUniform_.uniformId, 1, GL_FALSE, glm::value_ptr(viewUniform_.matrix));
 	glUniformMatrix4fv(projectionUniform_.uniformId, 1, GL_FALSE, glm::value_ptr(projectionUniform_.matrix));
-
-	auto currentHistory = bodyHistory_[historyCounter_];
+	auto currentHistory = bodyHistory_->at(historyCounter_);
 	for (auto currentBody : currentHistory)
 	{
 		glUniform2f(bodyPositionUniform_.uniformId, currentBody.position().x1(), currentBody.position().x2());
-		glUniform1f(massUniform_.uniformId, currentBody.mass() / (5e29 + currentBody.mass()));
+		auto normalisedMass = currentBody.mass() / (5e29 + currentBody.mass());
+		glUniform1f(massUniform_.uniformId, normalisedMass);
 		glDrawArrays(GL_POINTS, 0, 1);
 	}
 	handleInputs();
-	historyCounter_++;
-	if (historyCounter_ == bodyHistory_.size())
-		historyCounter_ = 0; /*glfwSetWindowShouldClose(window_, true);*/
+	historyCounter_ += 25;
+	if (historyCounter_ >= bodyHistory_->size())
+		historyCounter_ = 0;
 }
 
 

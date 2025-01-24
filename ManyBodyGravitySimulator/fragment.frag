@@ -10,5 +10,6 @@ void main()
 	float distance = dot(pos, pos);
 	if(distance > 1.0) discard;
 	
-	FragColor.rgb = vec3(normalisedMass,0.1-distance, 1-distance);
+//	FragColor.rgb = vec3(normalisedMass,0.1-distance, 1-distance);
+	FragColor.rgb = vec3(1.0,1.0, 1.0);
 }

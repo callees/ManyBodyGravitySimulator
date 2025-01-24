@@ -7,19 +7,24 @@
 #include "TwoVector.h"
 #include "RK4Method.h"
 
-typedef std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> odeFunc;
-
 class NBodySimulation
 {
 public:
 	NBodySimulation();
 	double escapeVelocity(Body<TwoVector> currentBody, Body<TwoVector> actingBody);
 	void setUpTestSimulation();
-	void createSimpleSystem(double mass, TwoVector origin, TwoVector velocity, std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc);
+	void createSolarSystem();
+	void createEarthSystem(TwoVector positionOfSun);
+	void createJovianSystem(TwoVector origin);
+	void createPlutoSystem(TwoVector positionOfSun);
+	void createSimpleSystem(double mass, TwoVector origin, TwoVector velocity);
+	void createRandomBody(double mass, double origin);
+	void createSystemWithRandomPositionsAndSimilarMasses();
 	void calculateFactorsOnSimulatedBodies();
 	void simulateOneTimeStep();
-	void trackBodyPositionHistory();
-	std::vector<std::vector<TwoVector>> getBodyPositionHistory();
+	void trackBodyHistory();
+	std::vector<std::vector<Body<TwoVector>>> getBodyHistory();
+	std::vector<std::vector<Body<TwoVector>>>* bodyHistory();
 	std::vector<SimulatedBody> simulatedBodies_;
 
 private:
@@ -29,13 +34,14 @@ private:
 	TwoVector calculateInteractionFromAllOtherBody(const SimulatedBody& currentBody);
 	double calculateInteractionFactorAtCurrentBody(const SimulatedBody& currentBody);
 	void updateAllPositions();
-	void updateBodyPositionHistory();
+	void updateBodyHistory();
 
 	double G_;
 	double timeStep_;
-	double interactionLimit_ = 50;
-	bool trackBodyPositionHistory_ = false;
-	std::vector<std::vector<TwoVector>> bodyPositionHistory_;
+	double interactionLimit_ = 1e+5;
+	bool trackBodyHistory_ = false;
+	std::vector<std::vector<Body<TwoVector>>> bodyHistory_;
+	std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc_;
 };
 
 //position -> 2 values

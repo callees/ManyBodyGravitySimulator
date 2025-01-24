@@ -5,8 +5,8 @@
 
 #include "NBodyRenderer.h"
 
-float screenX = 1280;
-float screenY = 720;
+int screenX = 1280;
+int screenY = 720;
 
 //float scaleFactor = 0.027;
 float scaleFactor = 2.19219998e-12;
@@ -30,7 +30,7 @@ int main(void) {
 	testSimulation.trackBodyHistory();
 
 	//4333*100
-	for (unsigned int epoch = 0; epoch < 4333*10; epoch++)
+	for (unsigned int epoch = 0; epoch < 4333*500; epoch++)
 	{
 		testSimulation.simulateOneTimeStep();
 	};
@@ -56,18 +56,31 @@ int main(void) {
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(0x8861);
 	glfwSwapInterval(0);
-
-	NBodyRenderer nBodyRenderer(testSimulation.getBodyHistory(), window);
-
+	NBodyRenderer nBodyRenderer(testSimulation.bodyHistory(), window);
+	//glViewport(0, 0, width, height);
 	while (!glfwWindowShouldClose(window))
 	{
+		glDisable(GL_BLEND);
 		nBodyRenderer.draw();
 		glfwSwapBuffers(window);
 		glfwSetScrollCallback(window, scroll_callback);
 		nBodyRenderer.setScaleFactor(scaleFactor);
+		glfwGetWindowSize(window, &screenX, &screenY);
+		glViewport(0, 0, screenX, screenY);
 		glfwPollEvents();
 	}
 
 	glfwTerminate();
 	return 0;
 }
+
+void draw(NBodyRenderer& nBodyRenderer, GLFWwindow* window)
+{
+	glDisable(GL_BLEND);
+	nBodyRenderer.draw();
+	glfwSwapBuffers(window);
+	glfwSetScrollCallback(window, scroll_callback);
+	nBodyRenderer.setScaleFactor(scaleFactor);
+	glfwPollEvents();
+}
+

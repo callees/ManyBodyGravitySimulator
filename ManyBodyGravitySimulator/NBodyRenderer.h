@@ -11,8 +11,8 @@
 class NBodyRenderer
 {
 public:
-	NBodyRenderer(std::string vertexShaderLocation, std::string fragmentShaderLocation, std::vector<std::vector<Body<TwoVector>>> bodyHistory, GLFWwindow* window);
-	NBodyRenderer(std::vector<std::vector<Body<TwoVector>>> bodyHistory, GLFWwindow* window);
+	NBodyRenderer(std::string vertexShaderLocation, std::string fragmentShaderLocation, std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window);
+	NBodyRenderer(std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window);
 	void initialiseShaderProgram(std::string vertexShaderLocation, std::string fragmentShaderLocation);
 	void setScaleFactor(float newScaleFactor);
 	float getScaleFactor();
@@ -27,7 +27,7 @@ private:
 	float calculateTimeBetweenFrames();
 
 	GLFWwindow* window_;
-	std::vector<std::vector<Body<TwoVector>>> bodyHistory_;
+	std::vector<std::vector<Body<TwoVector>>>* bodyHistory_ = nullptr;
 	ShaderProgram nBodyShaderProgram_;
 	Camera camera_;
 

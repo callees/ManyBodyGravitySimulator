@@ -116,13 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\include;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\include;C:\Users\Cal\Documents\glm-0.9.9.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.4.bin.WIN64\include;$(SolutionDir)glew-2.1.0\include;$(SolutionDir)glm-1.0.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Users\Cal\Documents\Code\ManyBodyGravitySimulator\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)glfw-3.4.bin.WIN64\lib-vc2022;$(SolutionDir)glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -147,39 +147,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Body.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="NBodyRenderer.cpp" />
-    <ClCompile Include="NBodySimulation.cpp" />
     <ClCompile Include="renderer.cc" />
-    <ClCompile Include="RK4FOODEs.cpp" />
-    <ClCompile Include="RK4Function.cpp" />
-    <ClCompile Include="RK4Method.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="SimulatedBody.cpp" />
-    <ClCompile Include="TwoOrderRK4Method.cpp" />
-    <ClCompile Include="TwoVector.cpp" />
     <ClCompile Include="VertexArrayBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Body.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="NBodyRenderer.h" />
-    <ClInclude Include="NBodySimulation.h" />
-    <ClInclude Include="RK4FOODEs.h" />
-    <ClInclude Include="RK4Function.h" />
-    <ClInclude Include="RK4Method.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="SimulatedBody.h" />
-    <ClInclude Include="TwoOrderRK4Method.h" />
-    <ClInclude Include="TwoVector.h" />
     <ClInclude Include="VertexArrayBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.frag" />
     <None Include="vertex.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NBodySimulator\NBodySimulator.vcxproj">
+      <Project>{50e265ab-ffdd-4b0f-9301-80fb33ee9c82}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

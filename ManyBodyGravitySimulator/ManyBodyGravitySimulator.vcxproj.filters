@@ -18,30 +18,6 @@
     <ClCompile Include="renderer.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TwoVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RK4Method.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TwoOrderRK4Method.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NBodySimulation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RK4FOODEs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RK4Function.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimulatedBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VertexArrayBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,30 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Body.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TwoVector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RK4Method.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TwoOrderRK4Method.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NBodySimulation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RK4FOODEs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RK4Function.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulatedBody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VertexArrayBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>

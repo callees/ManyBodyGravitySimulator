@@ -8,6 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
+
 NBodyRenderer::NBodyRenderer(std::string vertexShaderLocation, std::string fragmentShaderLocation, std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window) : bodyHistory_(bodyHistory), window_(window)
 {
 	initialiseShaderProgram(vertexShaderLocation, fragmentShaderLocation);
@@ -15,7 +16,7 @@ NBodyRenderer::NBodyRenderer(std::string vertexShaderLocation, std::string fragm
 	glUniform2f(resolutionUniform_.uniformId, 1280.f, 720.0f);
 }
 
-NBodyRenderer::NBodyRenderer(std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window) : NBodyRenderer("C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\vertex.vert", "C:\\Users\\Cal\\Documents\\Code\\ManyBodyGravitySimulator\\ManyBodyGravitySimulator\\fragment.frag", bodyHistory, window)
+NBodyRenderer::NBodyRenderer(std::vector<std::vector<Body<TwoVector>>>* bodyHistory, GLFWwindow* window) : NBodyRenderer("vertex.vert", "fragment.frag", bodyHistory, window)
 {
 }
 
@@ -49,7 +50,7 @@ void NBodyRenderer::draw()
 		glDrawArrays(GL_POINTS, 0, 1);
 	}
 	handleInputs();
-	historyCounter_ += 25;
+	historyCounter_ += 100;
 	if (historyCounter_ >= bodyHistory_->size())
 		historyCounter_ = 0;
 }

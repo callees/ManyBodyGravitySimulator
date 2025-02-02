@@ -1,7 +1,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "NBodySimulation.h"
+#include "../NBodySimulator/NBodySimulation.h"
 
 #include "NBodyRenderer.h"
 
@@ -9,7 +9,7 @@ int screenX = 1280;
 int screenY = 720;
 
 //float scaleFactor = 0.027;
-float scaleFactor = 2.19219998e-12;
+float scaleFactor = 2.19219998e-14;
 //float scaleFactor = 3.13656900e-09;
 
 
@@ -30,7 +30,7 @@ int main(void) {
 	testSimulation.trackBodyHistory();
 
 	//4333*100
-	for (unsigned int epoch = 0; epoch < 4333*500; epoch++)
+	for (unsigned int epoch = 0; epoch < 100*10; epoch++)
 	{
 		testSimulation.simulateOneTimeStep();
 	};

@@ -4,9 +4,9 @@
 #include <GLFW/glfw3.h>
 #include "ShaderProgram.h"
 #include <vector>
-#include "TwoVector.h"
+#include "../NBodySimulator/TwoVector.h"
 #include "Camera.h"
-#include "Body.h"
+#include "../NBodySimulator/Body.h"
 
 class NBodyRenderer
 {

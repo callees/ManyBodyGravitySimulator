@@ -1,6 +1,8 @@
 #pragma once
 
 #include <map>
+
+#include "BodiesHistories.h"
 #include "Body.h"
 #include "SimulatedBody.h"
 #include "Body.h"
@@ -17,14 +19,14 @@ public:
 	void createEarthSystem(TwoVector positionOfSun);
 	void createJovianSystem(TwoVector origin);
 	void createPlutoSystem(TwoVector positionOfSun);
-	void createSimpleSystem(double mass, TwoVector origin, TwoVector velocity);
 	void createRandomBody(double mass, double origin);
 	void createSystemWithRandomPositionsAndSimilarMasses();
 	void calculateFactorsOnSimulatedBodies();
 	void simulateOneTimeStep();
+	void simulate(unsigned int epoch);
 	void trackBodyHistory();
-	std::vector<std::vector<Body<TwoVector>>> getBodyHistory();
-	std::vector<std::vector<Body<TwoVector>>>* bodyHistory();
+	BodiesHistories getBodyHistory();
+	BodiesHistories* bodyHistory();
 	std::vector<SimulatedBody> simulatedBodies_;
 
 private:
@@ -40,7 +42,7 @@ private:
 	double timeStep_;
 	double interactionLimit_ = 1e+5;
 	bool trackBodyHistory_ = false;
-	std::vector<std::vector<Body<TwoVector>>> bodyHistory_;
+	BodiesHistories systemHistory_;
 	std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc_;
 };
 

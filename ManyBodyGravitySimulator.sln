@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RK4Tests", "RK4Tests\RK4Tes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NBodySimulator", "NBodySimulator\NBodySimulator.vcxproj", "{50E265AB-FFDD-4B0F-9301-80FB33EE9C82}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimulationProgram", "SimulationProgram\SimulationProgram.vcxproj", "{3BCC5BCA-F844-4857-9810-3171A1FEB773}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{50E265AB-FFDD-4B0F-9301-80FB33EE9C82}.Release|x64.Build.0 = Release|x64
 		{50E265AB-FFDD-4B0F-9301-80FB33EE9C82}.Release|x86.ActiveCfg = Release|Win32
 		{50E265AB-FFDD-4B0F-9301-80FB33EE9C82}.Release|x86.Build.0 = Release|Win32
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Debug|x64.ActiveCfg = Debug|x64
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Debug|x64.Build.0 = Debug|x64
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Debug|x86.ActiveCfg = Debug|Win32
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Debug|x86.Build.0 = Debug|Win32
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Release|x64.ActiveCfg = Release|x64
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Release|x64.Build.0 = Release|x64
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Release|x86.ActiveCfg = Release|Win32
+		{3BCC5BCA-F844-4857-9810-3171A1FEB773}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

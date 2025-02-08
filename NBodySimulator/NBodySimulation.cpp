@@ -10,42 +10,38 @@ NBodySimulation::NBodySimulation()
 {
 
 }
+
 void NBodySimulation::setUpTestSimulation()
 {
 	G_ = 6.6743e-11;
 	unsigned int dayInSeconds = 86400;
 	timeStep_ = dayInSeconds / 100;
 
-
 	gravitationalODEfunc_ = std::bind(&NBodySimulation::gravitationalODE, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-	//createSimpleSystem(10, TwoVector(0, 0), TwoVector(1, 0), gravitationalODEfunc);
-	createSolarSystem();
 
+	createEarthSystem(TwoVector(0, 0));
 	calculateFactorsOnSimulatedBodies();
 }
 
 void NBodySimulation::createSolarSystem()
 {
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, 26670*9.461e+15), TwoVector(0, 0), TwoVector(0, 0), 4.297e+6 * 1.989e+30), timeStep_));
-	//AnotherSun!
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(3e+11, 0), TwoVector(-5e+3, 10e+3), TwoVector(0, 0), 1.989e+30), timeStep_));
 	//Sun
 	TwoVector positionOfSun = TwoVector(0, 0);
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, 0), TwoVector(0, 0), TwoVector(0, 0), 1.989e+30), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, 0), TwoVector(0, 0), 1.989e+30), timeStep_));
 	//Mercury
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(6.9615e+10, 0), TwoVector(0, -47362.5), TwoVector(0, 0), 3.285e+23), timeStep_));
-	////Venus
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(-1.0769e+11, 0), TwoVector(0, 35000), TwoVector(0, 0), 4.867e+24), timeStep_));
-	//createEarthSystem(positionOfSun);
-	////Mars
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, -2.4554e+11), TwoVector(-24100, 0), TwoVector(0, 0), 6.39e+23), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(6.9615e+10, 0), TwoVector(0, -47362.5), 3.285e+23), timeStep_));
+	//Venus
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(-1.0769e+11, 0), TwoVector(0, 35000), 4.867e+24), timeStep_));
+	createEarthSystem(positionOfSun);
+	//Mars
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, -2.4554e+11), TwoVector(-24100, 0), 6.39e+23), timeStep_));
 	//Saturn
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, -1400000000000), TwoVector(9.69e+3, 0), TwoVector(0, 0), 5.685e+26), timeStep_));
-	////Uranus
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(2900000000000, 0), TwoVector(0, -6.8e+3), TwoVector(0, 0), 8.682e+25), timeStep_));
-	////Neptune
-	//simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(-4500000000000, 0), TwoVector(0, 5.4e+3), TwoVector(0, 0), 1.024e+26), timeStep_));
-	//createJovianSystem(positionOfSun);
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(0, -1400000000000), TwoVector(9.69e+3, 0), 5.685e+26), timeStep_));
+	//Uranus
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(2900000000000, 0), TwoVector(0, -6.8e+3), 8.682e+25), timeStep_));
+	//Neptune
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(-4500000000000, 0), TwoVector(0, 5.4e+3), 1.024e+26), timeStep_));
+	createJovianSystem(positionOfSun);
 	createPlutoSystem(positionOfSun);
 }
 
@@ -53,30 +49,30 @@ void NBodySimulation::createEarthSystem(TwoVector positionOfSun)
 {
 	TwoVector positionOfEarth = positionOfSun + TwoVector(0, 1.4724e+11);
 	TwoVector velocityOfEarth = TwoVector(29951.68, 0);
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfEarth, velocityOfEarth, TwoVector(0, 0), 5.972e+24), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfEarth + TwoVector(0, 384400e+3), velocityOfEarth + TwoVector(-1.022e+3, 0), TwoVector(0, 0), 7.34767309e+22), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfEarth, velocityOfEarth, 5.972e+24), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfEarth + TwoVector(0, 384400e+3), velocityOfEarth + TwoVector(-1.022e+3, 0), 7.34767309e+22), timeStep_));
 }
 
 void NBodySimulation::createJovianSystem(TwoVector positionOfSun)
 {
 	TwoVector positionOfJupiter = positionOfSun + TwoVector(0, 779000000000);
 	TwoVector velocityOfJupiter = TwoVector(-13.1e+3, 0);
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter, velocityOfJupiter, TwoVector(0, 0), 1.899e+27), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter, velocityOfJupiter, 1.899e+27), timeStep_));
 	//Io
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(0, 421800e+3), velocityOfJupiter + TwoVector(17.334e+3, 0), TwoVector(0, 0), 893.2e+20), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(0, 421800e+3), velocityOfJupiter + TwoVector(17.334e+3, 0), 893.2e+20), timeStep_));
 	//Europa
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(0, -671100e+3), velocityOfJupiter + TwoVector(-13.74e+3, 0), TwoVector(0, 0), 480.0e+20), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(0, -671100e+3), velocityOfJupiter + TwoVector(-13.74e+3, 0), 480.0e+20), timeStep_));
 	//Ganymede
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(1070400e+3, 0), velocityOfJupiter + TwoVector(0, -10.88e+3), TwoVector(0, 0), 1481.9e+20), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(1070400e+3, 0), velocityOfJupiter + TwoVector(0, -10.88e+3), 1481.9e+20), timeStep_));
 	//Callisto
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(-1882700e+3, 0), velocityOfJupiter + TwoVector(0, 8.2e+3), TwoVector(0, 0), 1075.9e+20), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfJupiter + TwoVector(-1882700e+3, 0), velocityOfJupiter + TwoVector(0, 8.2e+3), 1075.9e+20), timeStep_));
 }
 
 void NBodySimulation::createPlutoSystem(TwoVector positionOfSun)
 {
 	TwoVector positionOfPluto = TwoVector(5906380000e+3, 0) + positionOfSun;
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfPluto, TwoVector(-0.21 * 0.5e+3, 0), TwoVector(0, 0), 1.30900e+22), timeStep_));
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfPluto + TwoVector(0, 19640e+3), TwoVector(0.21 * 0.5e+3, 0), TwoVector(0, 0), 1.5897e+21), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfPluto, TwoVector(-0.21 * 0.5e+3, 0), 1.30900e+22), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfPluto + TwoVector(0, 19640e+3), TwoVector(0.21 * 0.5e+3, 0), 1.5897e+21), timeStep_));
 }
 
 void NBodySimulation::createRandomBody(double mass, double origin)
@@ -85,24 +81,16 @@ void NBodySimulation::createRandomBody(double mass, double origin)
 	std::mt19937 gen{ rd() };
 	std::normal_distribution<double> d{ origin, 5 };
 	std::normal_distribution<double> d2{ 0, 1.2 };
-	auto random = [&d, &gen] { return std::round(d(gen));};
-	auto randomVelocity = [&d2, &gen] { return std::round(d2(gen));};
+	auto random = [&d, &gen] { return std::round(d(gen)); };
+	auto randomVelocity = [&d2, &gen] { return std::round(d2(gen)); };
 	double randomX = random();
 	double randomY = random();
 	double randomVX = randomVelocity();
 	double randomVY = randomVelocity();
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(randomX, randomY), TwoVector(randomVX, randomVY), TwoVector(0, 0), mass), timeStep_));
+	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(randomX, randomY), TwoVector(randomVX, randomVY), mass), timeStep_));
 }
 
-void NBodySimulation::createSystemWithRandomPositionsAndSimilarMasses()
-{
-	for (unsigned int numberOfBodies = 0; numberOfBodies < 10; numberOfBodies++) createRandomBody(1.5, 20);
-	for (unsigned int numberOfBodies = 0; numberOfBodies < 10; numberOfBodies++) createRandomBody(1.5, -10);
-	for (unsigned int numberOfBodies = 0; numberOfBodies < 10; numberOfBodies++) createRandomBody(1.5, 30);
-	for (unsigned int numberOfBodies = 0; numberOfBodies < 10; numberOfBodies++) createRandomBody(1.5, -60);
-}
-
-void NBodySimulation::calculateFactorsOnSimulatedBodies() //could be multithreaded in the future?
+void NBodySimulation::calculateFactorsOnSimulatedBodies()
 {
 	for (std::vector<SimulatedBody>::iterator currentBody = simulatedBodies_.begin(); currentBody != simulatedBodies_.end(); currentBody++)
 	{
@@ -113,9 +101,6 @@ void NBodySimulation::calculateFactorsOnSimulatedBodies() //could be multithread
 
 void NBodySimulation::simulateOneTimeStep()
 {
-	//std::for_each(std::execution::par, simulatedBodies_.begin(), simulatedBodies_.end(), [](SimulatedBody simulatedBody) {
-	//	simulatedBody.calculateNewPosition();
-	//	});
 	for (std::vector<SimulatedBody>::iterator currentBody = simulatedBodies_.begin(); currentBody != simulatedBodies_.end(); currentBody++)
 	{
 		currentBody->calculateNewPosition();
@@ -125,36 +110,35 @@ void NBodySimulation::simulateOneTimeStep()
 	calculateFactorsOnSimulatedBodies();
 }
 
-void NBodySimulation::trackBodyHistory()
+void NBodySimulation::simulate(unsigned int epoch)
 {
-	if (!trackBodyHistory_) {
-		trackBodyHistory_ = true;
-		updateBodyHistory();
+	for (unsigned int currentEpoch = 0; currentEpoch < epoch; currentEpoch++)
+	{
+		simulateOneTimeStep();
 	}
+	systemHistory_.save();
 }
 
-std::vector<std::vector<Body<TwoVector>>> NBodySimulation::getBodyHistory()
+BodiesHistories NBodySimulation::getBodyHistory()
 {
-	return bodyHistory_;
+	return systemHistory_;
 }
 
-std::vector<std::vector<Body<TwoVector>>>* NBodySimulation::bodyHistory()
+BodiesHistories* NBodySimulation::bodyHistory()
 {
-	return &bodyHistory_;
+	return &systemHistory_;
 }
 
 void NBodySimulation::updateAllPositions()
 {
-	std::for_each(simulatedBodies_.begin(), simulatedBodies_.end(), [this](SimulatedBody& simBody) {simBody.updatePosition();});
+	std::for_each(simulatedBodies_.begin(), simulatedBodies_.end(), [this](SimulatedBody& simBody) {simBody.updatePosition(); });
 }
 
 void NBodySimulation::updateBodyHistory()
 {
-	if (trackBodyHistory_) {
-		std::vector<Body<TwoVector>> intermediateBodyVector;
-		for (auto simulatedBody : simulatedBodies_) intermediateBodyVector.push_back(simulatedBody.body());
-		bodyHistory_.push_back(intermediateBodyVector);
-	}
+	std::vector<Body<TwoVector>> intermediateBodyVector;
+	for (auto simulatedBody : simulatedBodies_) intermediateBodyVector.push_back(simulatedBody.body());
+	systemHistory_.addHistory(intermediateBodyVector);
 }
 
 RK4FOODEs<TwoVector> NBodySimulation::gravitationalODE(RK4FOODEs<TwoVector> positionAndVelocity, double step, double interactionFactorAtCurrentBody, TwoVector interactionFromAllOtherBodies)

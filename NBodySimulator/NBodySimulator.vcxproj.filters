@@ -39,6 +39,9 @@
     <ClCompile Include="TwoVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BodiesHistories.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -63,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TwoVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Distances.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BodiesHistories.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

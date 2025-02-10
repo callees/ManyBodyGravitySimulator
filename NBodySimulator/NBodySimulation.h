@@ -1,7 +1,5 @@
 #pragma once
 
-#include <map>
-
 #include "BodiesHistories.h"
 #include "Body.h"
 #include "SimulatedBody.h"
@@ -13,13 +11,12 @@ class NBodySimulation
 {
 public:
 	NBodySimulation();
-	double escapeVelocity(Body<TwoVector> currentBody, Body<TwoVector> actingBody);
 	void setUpTestSimulation();
 	void createSolarSystem();
 	void createEarthSystem(TwoVector positionOfSun);
 	void createJovianSystem(TwoVector origin);
 	void createPlutoSystem(TwoVector positionOfSun);
-	void createRandomBody(double mass, double origin);
+	//void createRandomBody(double mass, double origin);
 	void createSystemWithRandomPositionsAndSimilarMasses();
 	void calculateFactorsOnSimulatedBodies();
 	void simulateOneTimeStep();
@@ -45,8 +42,3 @@ private:
 	BodiesHistories systemHistory_;
 	std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc_;
 };
-
-//position -> 2 values
-//velocity -> 2 values
-
-//100000*4

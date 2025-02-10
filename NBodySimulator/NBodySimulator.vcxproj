@@ -141,13 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BodiesHistories.cpp" />
-    <ClCompile Include="Body.cpp" />
     <ClCompile Include="NBodySimulation.cpp" />
-    <ClCompile Include="RK4FOODEs.cpp" />
-    <ClCompile Include="RK4Function.cpp" />
-    <ClCompile Include="RK4Method.cpp" />
     <ClCompile Include="SimulatedBody.cpp" />
-    <ClCompile Include="TwoOrderRK4Method.cpp" />
     <ClCompile Include="TwoVector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +154,6 @@
     <ClInclude Include="RK4Function.h" />
     <ClInclude Include="RK4Method.h" />
     <ClInclude Include="SimulatedBody.h" />
-    <ClInclude Include="TwoOrderRK4Method.h" />
     <ClInclude Include="TwoVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

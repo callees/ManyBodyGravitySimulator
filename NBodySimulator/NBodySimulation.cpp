@@ -2,23 +2,19 @@
 #include "RK4Function.h"
 #include <algorithm>
 #include <functional>
-#include <execution>
-#include <fstream>
-#include <random>
+#include <cmath>
+//#include <random>
 
 NBodySimulation::NBodySimulation()
-{
-
-}
-
-void NBodySimulation::setUpTestSimulation()
 {
 	G_ = 6.6743e-11;
 	unsigned int dayInSeconds = 86400;
 	timeStep_ = dayInSeconds / 100;
-
 	gravitationalODEfunc_ = std::bind(&NBodySimulation::gravitationalODE, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+}
 
+void NBodySimulation::setUpTestSimulation()
+{
 	createEarthSystem(TwoVector(0, 0));
 	calculateFactorsOnSimulatedBodies();
 }
@@ -75,20 +71,20 @@ void NBodySimulation::createPlutoSystem(TwoVector positionOfSun)
 	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(positionOfPluto + TwoVector(0, 19640e+3), TwoVector(0.21 * 0.5e+3, 0), 1.5897e+21), timeStep_));
 }
 
-void NBodySimulation::createRandomBody(double mass, double origin)
-{
-	std::random_device rd{};
-	std::mt19937 gen{ rd() };
-	std::normal_distribution<double> d{ origin, 5 };
-	std::normal_distribution<double> d2{ 0, 1.2 };
-	auto random = [&d, &gen] { return std::round(d(gen)); };
-	auto randomVelocity = [&d2, &gen] { return std::round(d2(gen)); };
-	double randomX = random();
-	double randomY = random();
-	double randomVX = randomVelocity();
-	double randomVY = randomVelocity();
-	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(randomX, randomY), TwoVector(randomVX, randomVY), mass), timeStep_));
-}
+//void NBodySimulation::createRandomBody(double mass, double origin)
+//{
+//	std::random_device rd{};
+//	std::mt19937 gen{ rd() };
+//	std::normal_distribution<double> d{ origin, 5 };
+//	std::normal_distribution<double> d2{ 0, 1.2 };
+//	auto random = [&d, &gen] { return std::round(d(gen)); };
+//	auto randomVelocity = [&d2, &gen] { return std::round(d2(gen)); };
+//	double randomX = random();
+//	double randomY = random();
+//	double randomVX = randomVelocity();
+//	double randomVY = randomVelocity();
+//	simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, Body<TwoVector>(TwoVector(randomX, randomY), TwoVector(randomVX, randomVY), mass), timeStep_));
+//}
 
 void NBodySimulation::calculateFactorsOnSimulatedBodies()
 {

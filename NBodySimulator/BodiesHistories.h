@@ -6,9 +6,9 @@ class BodiesHistories
 {
 public:
 	BodiesHistories();
-	void addHistory(std::vector<Body<TwoVector>> bodyHistory);
+	void addHistory(std::vector<Body<TwoVector> > bodyHistory);
 	void save();
 private:
-	std::vector<std::vector<Body<TwoVector>>> systemHistory_ = {{}};
+	std::vector<std::vector<Body<TwoVector> > > systemHistory_ = {{}};
 };
 

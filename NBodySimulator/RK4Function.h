@@ -1,10 +1,7 @@
+#pragma once
 #include "RK4FOODEs.h"
 #include <functional>
 #include "TwoVector.h"
-
-#pragma once
-#ifndef RK4Function_H
-#define RK4Function_H
 
 template<class T>
 class RK4Function
@@ -20,6 +17,26 @@ private:
 	double factor_;
 };
 
-#include "RK4Function.cpp"
+template<class T>
+RK4Function<T>::RK4Function()
+{
+}
 
-#endif
+template <class T>
+RK4Function<T>::RK4Function(std::function<RK4FOODEs<T>(RK4FOODEs<T>, double, double, TwoVector)> rk4Function, double factor) : rk4Function_(rk4Function), factor_(factor)
+{
+
+}
+
+template <class T>
+void RK4Function<T>::changeFactor(double factor)
+{
+	factor_ = factor;
+}
+
+
+template<class T>
+RK4FOODEs<T> RK4Function<T>::operator()(RK4FOODEs<T> rk4Arguments, double step, double interactionFactorAtCurrentBody, TwoVector interactionFromAllOtherBodies)
+{
+	return rk4Function_(rk4Arguments, step, interactionFactorAtCurrentBody, interactionFromAllOtherBodies);
+}

@@ -5,7 +5,7 @@ BodiesHistories::BodiesHistories()
 {
 }
 
-void BodiesHistories::addHistory(std::vector<Body<TwoVector>> bodyHistory)
+void BodiesHistories::addHistory(std::vector<Body<TwoVector> > bodyHistory)
 {
 	systemHistory_.push_back(bodyHistory);
 }

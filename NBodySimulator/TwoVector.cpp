@@ -67,7 +67,7 @@ TwoVector TwoVector::operator/(const double& other)
 	return TwoVector(this->x_ / other, this->y_ / other);
 }
 
-bool TwoVector::operator<(const TwoVector& rhs) const noexcept
+bool TwoVector::operator<(const TwoVector& rhs) const
 {
 	return sqrt(pow(this->x_, 2) + pow(this->y_, 2)) < sqrt(pow(rhs.x_, 2) + pow(rhs.y_, 2));
 }

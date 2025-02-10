@@ -17,7 +17,7 @@ public:
 	friend TwoVector operator*(const TwoVector& aVector, const double& aDouble);
 	TwoVector operator/(const double& other);
 	friend std::ostream& operator<<(std::ostream& os, const TwoVector& vector);
-	bool operator<(const TwoVector& rhs) const noexcept;
+	bool operator<(const TwoVector& rhs) const;
 
 private:
 	double x_;

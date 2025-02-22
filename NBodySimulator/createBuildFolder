@@ -1,0 +1,2 @@
+rm -rd build/
+rsync -av -f"+ */" -f"- *" "." "build"

@@ -1,6 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudio,c++
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,c++
-
+### Custom ###
+NBodySimulator/build/
 
 ### Vim ###
  Swap
@@ -56,6 +55,9 @@ tags
 *.exe
 *.out
 *.app
+
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudio,c++
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,c++
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and

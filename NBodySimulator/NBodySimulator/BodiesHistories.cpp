@@ -35,4 +35,9 @@ void BodiesHistories::save()
 		historyObject[std::to_string(epoch)] = bodies;
 		bodies = {};
 	}
+
+	std::ofstream file;
+	file.open("output.json");
+	file << historyObject;
+	file.close();
 }

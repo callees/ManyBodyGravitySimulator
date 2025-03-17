@@ -11,6 +11,7 @@ class NBodySimulation
 {
 public:
 	NBodySimulation();
+	NBodySimulation(std::vector<Body<TwoVector>> bodiesToSimulate);
 	void setUpTestSimulation();
 	void createSolarSystem();
 	void createEarthSystem(TwoVector positionOfSun);
@@ -33,8 +34,8 @@ private:
 	double calculateInteractionFactorAtCurrentBody(const SimulatedBody& currentBody);
 	void updateAllPositions();
 	void updateBodyHistory();
-
-	double G_;
+	std::function<RK4FOODEs<TwoVector>(RK4FOODEs<TwoVector>, double, double, TwoVector)> gravitationalODEfunc();
+	double G_ = 6.6743e-11;
 	double timeStep_;
 	double interactionLimit_ = 1e+5;
 	bool trackBodyHistory_ = false;

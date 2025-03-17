@@ -10,7 +10,18 @@ NBodySimulation::NBodySimulation()
 	G_ = 6.6743e-11;
 	unsigned int dayInSeconds = 86400;
 	timeStep_ = dayInSeconds / 100;
+}
+
+NBodySimulation::NBodySimulation(std::vector<Body<TwoVector>> bodiesToSimulate)
+{
+	unsigned int dayInSeconds = 86400;
+	timeStep_ = dayInSeconds / 100;
 	gravitationalODEfunc_ = std::bind(&NBodySimulation::gravitationalODE, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+	for(auto body : bodiesToSimulate)
+	{
+		simulatedBodies_.push_back(SimulatedBody(gravitationalODEfunc_, body, timeStep_));
+	}
+	calculateFactorsOnSimulatedBodies();
 }
 
 void NBodySimulation::setUpTestSimulation()
@@ -126,7 +137,6 @@ RK4FOODEs<TwoVector> NBodySimulation::gravitationalODE(RK4FOODEs<TwoVector> posi
 {
 	return RK4FOODEs<TwoVector>(positionAndVelocity.dy(), interactionFactorAtCurrentBody * positionAndVelocity.y() - interactionFromAllOtherBodies);
 }
-
 
 TwoVector NBodySimulation::calculateInteractionFromAllOtherBody(const SimulatedBody& currentBody)
 {

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-project_dir=$(dirname "$0")
+project_dir=$(pwd)
 
 echo "$project_dir"
 

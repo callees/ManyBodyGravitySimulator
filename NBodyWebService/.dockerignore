@@ -1,0 +1,6 @@
+.vscode
+build
+.dockerignore
+Dockerfile
+*_test.go
+*Request.json

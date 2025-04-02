@@ -1,8 +1,8 @@
 {
     "makefile.launchConfigurations": [
         {
-            "cwd": "/home/audipitre/repos/ManyBodyGravitySimulator/NBodySimulator/build",
-            "binaryPath": "/home/audipitre/repos/ManyBodyGravitySimulator/NBodySimulator/build/nbodysimapp",
+            "cwd": "${workspaceFolder}/ManyBodyGravitySimulator/NBodySimulator/build",
+            "binaryPath": "${workspaceFolder}/ManyBodyGravitySimulator/NBodySimulator/build/nbodysimapp",
             "binaryArgs": []
         }
     ]

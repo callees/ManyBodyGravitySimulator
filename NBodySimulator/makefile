@@ -8,11 +8,14 @@ SRCS:= $(filter-out Tests/, $(ALL_SRCS))
 OBJS:=$(foreach src, $(SRCS), $(BUILD_DIR)/$(subst .cpp,.o,$(src)))
 
 .PHONY: all
-all: nbodysimapp 
+all: prepare nbodysimapp 
 
 .PHONY: clean
 clean:
 	rm -rf build/**/*.o
+
+prepare:
+	./scripts/createBuildFolder.sh
 
 nbodysimapp: $(OBJS)
 	$(COMPILER) $(COMPILER_FLAG) $(OBJS) -o $(BUILD_DIR)/nbodysimapp

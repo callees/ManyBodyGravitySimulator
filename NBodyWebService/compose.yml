@@ -1,0 +1,8 @@
+name: nobodysimulator-web-service
+
+services:
+  api:
+    build: .
+    image: nbody/webservice
+    ports:
+      - 6969:6969

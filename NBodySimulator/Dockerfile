@@ -1,8 +1,14 @@
-FROM gcc:14.1
-COPY "./makefile" /usr/src
-COPY "./NBodySimulator/*.cpp" /usr/src/NBodySimulator/
-COPY "./NBodySimulator/*.h" /usr/src/NBodySimulator/
-COPY "./SimulationProgram/main.cpp" /usr/src/SimulationProgram/
-WORKDIR /usr/src/
+FROM gcc:14.1 AS builder
+
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    rsync
+
+COPY . .
 RUN make VERBOSE=1
-CMD ["./nbodysimapp"]
+
+FROM gcc:14.1
+
+COPY --from=builder /build/nbodysimapp /usr/local/bin
+
+CMD ["nbodysimapp"]

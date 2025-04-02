@@ -23,11 +23,12 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"eamodio.gitlens",
 				"ms-vscode.cpptools",
 				"ms-vscode.cmake-tools",
 				"golang.go",
 				"ms-azuretools.vscode-docker",
-				"eamodio.gitlens"
+				"ms-vscode.makefile-tools"
 			]
 		}
 	}
